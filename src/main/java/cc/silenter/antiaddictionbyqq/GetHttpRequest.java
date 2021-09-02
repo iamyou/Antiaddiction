@@ -41,15 +41,23 @@ public class GetHttpRequest{
             //开始获取数据
             BufferedInputStream bis = new BufferedInputStream(httpURLConnection.getInputStream());
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            int len;
-            byte[] arr = new byte[1024];
-            while((len=bis.read(arr))!= -1){
-                bos.write(arr,0,len);
+            try {
+                try {
+                    int len;
+                    byte[] arr = new byte[1024];
+                    while((len=bis.read(arr))!= -1){
+                        bos.write(arr,0,len);
+                }
+                finally {
+                    bis.close();
+                }
                 bos.flush();
+                JsonParser parse = new JsonParser();
+                return (JsonObject)parse.parse(bos.toString("utf-8"));
             }
-            bos.close();
-            JsonParser parse = new JsonParser();
-            return (JsonObject)parse.parse(bos.toString("utf-8"));
+            finally {
+                bos.close();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             instance.getConfig().set("settings.use_holiday",0);log.info("Fail to load json, reset use_holiday to 0");
