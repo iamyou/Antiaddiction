@@ -40,23 +40,19 @@ public class GetHttpRequest{
             printWriter.flush();
             //开始获取数据
             BufferedInputStream bis = new BufferedInputStream(httpURLConnection.getInputStream());
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            try {
+            try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
                 try {
                     int len;
                     byte[] arr = new byte[1024];
-                    while((len=bis.read(arr))!= -1){
-                        bos.write(arr,0,len);
-                }
-                finally {
+                    while ((len = bis.read(arr)) != -1) {
+                        bos.write(arr, 0, len);
+                    }
+                } finally {
                     bis.close();
                 }
                 bos.flush();
                 JsonParser parse = new JsonParser();
-                return (JsonObject)parse.parse(bos.toString("utf-8"));
-            }
-            finally {
-                bos.close();
+                return (JsonObject) parse.parse(bos.toString("utf-8"));
             }
         } catch (Exception e) {
             e.printStackTrace();
