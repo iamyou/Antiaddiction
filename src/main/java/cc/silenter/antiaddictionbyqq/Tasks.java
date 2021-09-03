@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
 
@@ -19,17 +18,16 @@ public class Tasks extends BukkitRunnable {
 
     @Override
     public void run() {
+        boolean rightTime = checkPlay();
         for (Player i : Bukkit.getOnlinePlayers()) {
             if (Storage.isChecked.get(i.getUniqueId().toString())) {
                 if (Storage.isAdult.get(i.getUniqueId().toString())) {
                     continue;
                 } else {
-                    if (checkPlay()) {
-                        continue;
-                    } else {
+                    if (!rightTime) {
                         i.kickPlayer(instance.getConfig().getString("message.not_allow"));
-                        continue;
                     }
+                    continue;
                 }
             }
             String QQ = String.valueOf(MiraiMC.getBinding(i.getUniqueId().toString()));
