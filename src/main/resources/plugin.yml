@@ -9,7 +9,7 @@ permissions:
     default: op
 commands:
   antiaddiction:
-    description: '防火窗呢没插件有关命令'
+    description: '防沉迷插件有关命令'
     usage: /<command> reload
     permission: antiaddiction.reload
     aliases: [aa]

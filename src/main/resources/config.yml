@@ -10,6 +10,9 @@ message:
   checking1: '验证中'
   checking2: '请稍安勿躁'
   not_realname: '你没有实名认证'
+  hint:
+    reloaded: '插件已重载'
+    incorrect_syntax: '语法错误！'
 settings:
   #设置为0不使用节假日API，设置为1使用本地节假日API（Holiday.json），设置为2使用网页节假日API http://timor.tech/api/holiday/year 设置成其他则不允许未成年人游玩
   use_holiday: 2
