@@ -37,7 +37,8 @@ public final class AntiaddictionByQQ extends JavaPlugin {
             Storage.isChecked.put(i.getUniqueId().toString(),false);
             Storage.isChecking.put(i.getUniqueId().toString(),false);
         }
-        getCommand("aa").setExecutor(this);
+        getCommand("antiaddiction").setExecutor(this);
+        getCommand("antiaddiction").setTabCompleter(this);
         Tasks task = new Tasks();
         task.runTaskTimer(this,0,20);
         if (instance.getConfig().getInt("settings.use_holiday")==2){
@@ -52,7 +53,7 @@ public final class AntiaddictionByQQ extends JavaPlugin {
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if(cmd.getName().equalsIgnoreCase("Anti")){ // your command name
+        if(cmd.getName().equalsIgnoreCase("antiaddiction")){ // your command name
             if(args.length != 1 ){
                 sender.sendMessage("Incorrect Syntax!!"); //prints "incorrect syntax"
                 return true;
