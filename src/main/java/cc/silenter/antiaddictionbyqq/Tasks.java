@@ -35,7 +35,7 @@ public class Tasks extends BukkitRunnable {
                 i.kickPlayer(instance.getConfig().getString("message.timeout"));
                 continue;
             }
-            //-1S……-1S……
+            //-1S...-1S...
             if (instance.getConfig().getBoolean("settings.authme")) {
                 if (!AuthMeApi.getInstance().isAuthenticated(i)) {
                     continue;
