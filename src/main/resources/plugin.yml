@@ -3,3 +3,13 @@ version: '${project.version}'
 main: cc.silenter.antiaddictionbyqq.AntiaddictionByQQ
 depend: [MiraiMC]
 softdepend: [AuthMe]
+permissions:
+  antiaddiction.reload:
+    description: '允许重载插件'
+    default: op
+commands:
+  antiaddiction:
+    description: '防火窗呢没插件有关命令'
+    usage: /<command> reload
+    permission: antiaddiction.reload
+    aliases: [aa]

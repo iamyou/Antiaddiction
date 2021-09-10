@@ -2,10 +2,14 @@ package cc.silenter.antiaddictionbyqq;
 
 import com.google.gson.JsonObject;
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public final class AntiaddictionByQQ extends JavaPlugin {
@@ -33,6 +37,7 @@ public final class AntiaddictionByQQ extends JavaPlugin {
             Storage.isChecked.put(i.getUniqueId().toString(),false);
             Storage.isChecking.put(i.getUniqueId().toString(),false);
         }
+        getCommand("aa").setExecutor(this);
         Tasks task = new Tasks();
         task.runTaskTimer(this,0,20);
         if (instance.getConfig().getInt("settings.use_holiday")==2){
@@ -45,4 +50,32 @@ public final class AntiaddictionByQQ extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
     }
+
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if(cmd.getName().equalsIgnoreCase("Anti")){ // your command name
+            if(args.length != 1 ){
+                sender.sendMessage("Incorrect Syntax!!"); //prints "incorrect syntax"
+                return true;
+            }
+            if (args[0].equals("reload")) {
+            reloadConfig();
+            sender.sendMessage("Reloaded");
+            }
+        }
+        return false;
+    }
+    public List<String> onTabComplete(CommandSender sender, //registers the auto tab completer
+                                      Command command,
+                                      String alias,
+                                      String[] args){
+        if(command.getName().equalsIgnoreCase("aa")){
+            List<String> l = new ArrayList<String>();
+            if (args.length==1){
+                l.add("reload");
+            }
+            return l;
+        }
+        return null;
+    }
+
 }
