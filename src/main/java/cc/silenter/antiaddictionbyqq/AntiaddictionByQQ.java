@@ -28,21 +28,26 @@ public final class AntiaddictionByQQ extends JavaPlugin {
             getDataFolder().mkdirs();
             saveDefaultConfig();
         }
-        if(!this.getServer().getPluginManager().isPluginEnabled("AuthMe")||this.getConfig().getBoolean("settings.authme")){
-            this.getConfig().set("settings.authme",false);
-            log.info("Didn't find AuthMe, reset authme to false");
-        }
+        checkConfig();
         for (Player i: Bukkit.getOnlinePlayers()){
             Storage.time.put(i.getUniqueId().toString(),instance.getConfig().getInt("settings.time"));
             Storage.isChecked.put(i.getUniqueId().toString(),false);
             Storage.isChecking.put(i.getUniqueId().toString(),false);
         }
-        getCommand("aa").setExecutor(this);
+        getCommand("antiaddiction").setExecutor(this);
+        getCommand("antiaddiction").setTabCompleter(this);
         Tasks task = new Tasks();
         task.runTaskTimer(this,0,20);
         if (instance.getConfig().getInt("settings.use_holiday")==2){
-            recv = GetHttpRequest.sendGet("http://timor.tech/api/holiday/year","");
+            recv = GetHttpRequest.sendGet("https://timor.tech/api/holiday/year","");
             if (recv==null){this.getConfig().set("use_holiday",0);log.info("Fail to load json, reset use_holiday to 0");}
+        }
+    }
+
+    private void checkConfig() {
+        if(!this.getServer().getPluginManager().isPluginEnabled("AuthMe")||this.getConfig().getBoolean("settings.authme")){
+            this.getConfig().set("settings.authme",false);
+            log.info("Didn't find AuthMe, reset authme to false");
         }
     }
 
@@ -52,14 +57,15 @@ public final class AntiaddictionByQQ extends JavaPlugin {
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if(cmd.getName().equalsIgnoreCase("Anti")){ // your command name
+        if(cmd.getName().equalsIgnoreCase("antiaddiction")){ // your command name
             if(args.length != 1 ){
-                sender.sendMessage("Incorrect Syntax!!"); //prints "incorrect syntax"
+                sender.sendMessage(this.getConfig().getString("message.hint.incorrect_syntax")); //prints "incorrect syntax"
                 return true;
             }
             if (args[0].equals("reload")) {
-            reloadConfig();
-            sender.sendMessage("Reloaded");
+                checkConfig();
+                sender.sendMessage(this.getConfig().getString("message.hint.reloaded"));
+                return true;
             }
         }
         return false;
@@ -68,7 +74,7 @@ public final class AntiaddictionByQQ extends JavaPlugin {
                                       Command command,
                                       String alias,
                                       String[] args){
-        if(command.getName().equalsIgnoreCase("aa")){
+        if(command.getName().equalsIgnoreCase("antiaddiction")){
             List<String> l = new ArrayList<String>();
             if (args.length==1){
                 l.add("reload");
