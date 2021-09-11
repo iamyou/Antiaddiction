@@ -68,7 +68,8 @@ public final class AntiaddictionByQQ extends JavaPlugin {
                 return true;
             }
         }
-        return false;
+        sender.sendMessage(this.getConfig().getString("message.hint.nocommand"));
+        return true;
     }
     public List<String> onTabComplete(CommandSender sender, //registers the auto tab completer
                                       Command command,
