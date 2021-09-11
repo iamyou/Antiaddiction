@@ -25,14 +25,14 @@ public class Tasks extends BukkitRunnable {
                     continue;
                 } else {
                     if (!rightTime) {
-                        i.kickPlayer(instance.getConfig().getString("message.not_allow"));
+                        i.kickPlayer(instance.getConfig().getString("message.not_allow").replaceAll("&","§"));
                     }
                     continue;
                 }
             }
             String QQ = String.valueOf(MiraiMC.getBinding(i.getUniqueId().toString()));
             if (Storage.time.get(i.getUniqueId().toString()) == 0) {
-                i.kickPlayer(instance.getConfig().getString("message.timeout"));
+                i.kickPlayer(instance.getConfig().getString("message.timeout").replaceAll("&","§"));
                 continue;
             }
             //-1S...-1S...
@@ -68,7 +68,7 @@ public class Tasks extends BukkitRunnable {
             Storage.isChecking.put(UUID.toString(), false);
         } else {
             if (!back.get("is_realname").getAsString().equals("1")) {
-                Objects.requireNonNull(Bukkit.getPlayer(UUID)).kickPlayer(instance.getConfig().getString("message.not_realname"));
+                Objects.requireNonNull(Bukkit.getPlayer(UUID)).kickPlayer(instance.getConfig().getString("message.not_realname").replaceAll("&","§"));
             }
             if (!back.get("is_adult").getAsString().equals("1")) {
                 Storage.isAdult.put(UUID.toString(), false);

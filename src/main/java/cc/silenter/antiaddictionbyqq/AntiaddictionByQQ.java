@@ -59,16 +59,16 @@ public final class AntiaddictionByQQ extends JavaPlugin {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(cmd.getName().equalsIgnoreCase("antiaddiction")){ // your command name
             if(args.length != 1 ){
-                sender.sendMessage(this.getConfig().getString("message.hint.incorrect_syntax")); //prints "incorrect syntax"
+                sender.sendMessage(this.getConfig().getString("message.hint.incorrect_syntax").replaceAll("&","§")); //prints "incorrect syntax"
                 return true;
             }
             if (args[0].equals("reload")) {
                 checkConfig();
-                sender.sendMessage(this.getConfig().getString("message.hint.reloaded"));
+                sender.sendMessage(this.getConfig().getString("message.hint.reloaded").replaceAll("&","§"));
                 return true;
             }
         }
-        sender.sendMessage(this.getConfig().getString("message.hint.nocommand"));
+        sender.sendMessage(this.getConfig().getString("message.hint.nocommand").replaceAll("&","§"));
         return true;
     }
     public List<String> onTabComplete(CommandSender sender, //registers the auto tab completer
