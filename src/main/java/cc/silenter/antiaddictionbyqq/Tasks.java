@@ -47,7 +47,7 @@ public class Tasks extends BukkitRunnable {
             }
 
             if (QQ.equals("0")) {
-                i.sendTitle(instance.getConfig().getString("message.not_bind1"), instance.getConfig().getString("message.not_bind2"), 0, 40, 0);
+                i.sendTitle(instance.getConfig().getString("message.not_bind1").replaceAll("&","§"), instance.getConfig().getString("message.not_bind2").replaceAll("&","§"), 0, 40, 0);
                 continue;
             }
             if (!Storage.isChecking.get(i.getUniqueId().toString()) || !Storage.isChecked.get(i.getUniqueId().toString())) {
@@ -58,7 +58,7 @@ public class Tasks extends BukkitRunnable {
 
     private void checkAdult(UUID UUID, String QQ) {
         Storage.isChecking.put(UUID.toString(), true);
-        Objects.requireNonNull(Bukkit.getPlayer(UUID)).sendTitle(instance.getConfig().getString("message.checking1"), instance.getConfig().getString("message.checking2"), 0, 40, 40);
+        Objects.requireNonNull(Bukkit.getPlayer(UUID)).sendTitle(instance.getConfig().getString("message.checking1").replaceAll("&","§"), instance.getConfig().getString("message.checking2").replaceAll("&","§"), 0, 40, 40);
         JsonObject back = GetHttpRequest.SendPostJsonObject("https://www.wegame.com.cn/api/middle/lua/realname/check_user_real_name", "{\"qq_login_key\":{\"qq_key_type\":3,\"uint64_uin\":" + QQ + "},\"acc_type\":1,\"uint64_uin\":" + QQ + "}\n");
         if (back == null) {
             Storage.isChecking.put(UUID.toString(), false);
@@ -74,12 +74,12 @@ public class Tasks extends BukkitRunnable {
                 Storage.isAdult.put(UUID.toString(), false);
                 Storage.isChecked.put(UUID.toString(), true);
                 Storage.isChecking.put(UUID.toString(), false);
-                Objects.requireNonNull(Bukkit.getPlayer(UUID)).sendTitle(instance.getConfig().getString("message.not_adult1"), instance.getConfig().getString("message.not_adult2"), 0, 40, 40);
+                Objects.requireNonNull(Bukkit.getPlayer(UUID)).sendTitle(instance.getConfig().getString("message.not_adult1").replaceAll("&","§"), instance.getConfig().getString("message.not_adult2").replaceAll("&","§"), 0, 40, 40);
             } else {
                 Storage.isAdult.put(UUID.toString(), true);
                 Storage.isChecked.put(UUID.toString(), true);
                 Storage.isChecking.put(UUID.toString(), false);
-                Objects.requireNonNull(Bukkit.getPlayer(UUID)).sendTitle(instance.getConfig().getString("message.is_adult1"), instance.getConfig().getString("message.is_adult2"), 0, 40, 40);
+                Objects.requireNonNull(Bukkit.getPlayer(UUID)).sendTitle(instance.getConfig().getString("message.is_adult1").replaceAll("&","§"), instance.getConfig().getString("message.is_adult2").replaceAll("&","§"), 0, 40, 40);
             }
         }
     }
