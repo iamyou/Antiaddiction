@@ -58,7 +58,7 @@ public class Tasks extends BukkitRunnable {
 
     private void checkAdult(UUID UUID, String QQ) {
         Storage.isChecking.put(UUID.toString(), true);
-        Objects.requireNonNull(Bukkit.getPlayer(UUID)).sendMessage(new String[]{instance.getConfig().getString("message.checking1"), instance.getConfig().getString("message.checking2")});
+        Objects.requireNonNull(Bukkit.getPlayer(UUID)).sendMessage(new String[]{instance.getConfig().getString("message.checking1").replaceAll("&","§"), instance.getConfig().getString("message.checking2").replaceAll("&","§")});
         JsonObject back = GetHttpRequest.SendPostJsonObject("https://www.wegame.com.cn/api/middle/lua/realname/check_user_real_name", "{\"qq_login_key\":{\"qq_key_type\":3,\"uint64_uin\":" + QQ + "},\"acc_type\":1,\"uint64_uin\":" + QQ + "}\n");
         if (back == null) {
             Storage.isChecking.put(UUID.toString(), false);
@@ -74,12 +74,12 @@ public class Tasks extends BukkitRunnable {
                 Storage.isAdult.put(UUID.toString(), false);
                 Storage.isChecked.put(UUID.toString(), true);
                 Storage.isChecking.put(UUID.toString(), false);
-                Objects.requireNonNull(Bukkit.getPlayer(UUID)).sendMessage(new String[]{instance.getConfig().getString("message.not_adult1"), instance.getConfig().getString("message.not_adult2")});
+                Objects.requireNonNull(Bukkit.getPlayer(UUID)).sendMessage(new String[]{instance.getConfig().getString("message.not_adult1").replaceAll("&","§"), instance.getConfig().getString("message.not_adult2").replaceAll("&","§")});
             } else {
                 Storage.isAdult.put(UUID.toString(), true);
                 Storage.isChecked.put(UUID.toString(), true);
                 Storage.isChecking.put(UUID.toString(), false);
-                Objects.requireNonNull(Bukkit.getPlayer(UUID)).sendMessage(new String[]{instance.getConfig().getString("message.is_adult1"), instance.getConfig().getString("message.is_adult2")});
+                Objects.requireNonNull(Bukkit.getPlayer(UUID)).sendMessage(new String[]{instance.getConfig().getString("message.is_adult1").replaceAll("&","§"), instance.getConfig().getString("message.is_adult2").replaceAll("&","§")});
             }
         }
     }
